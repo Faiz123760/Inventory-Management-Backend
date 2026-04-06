@@ -1,0 +1,23 @@
+services:
+  - type: web_service
+    name: inventory-backend
+    env: node
+    plan: starter
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: inventory-db
+          property: connectionString
+
+databases:
+  - name: inventory-db
+    databaseName: inventory_db
+    plan: starter
+    env: postgres
+    region: oregon
+    branch: main
